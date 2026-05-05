@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Details</title>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0f0c29; /* Dark midnight blue */
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    color: white;
+    overflow-x: hidden; /* Prevents sparkles from making the page scroll */
+}
+
+.login-card, .form-container {
+    background: rgba(255, 255, 255, 0.1); /* Transparent glass effect */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+input, textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px !important;
+}
+
+button, .btn {
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 id="form-title">Report Item</h2>
+        <form action="#" onsubmit="alert('Report Submitted!'); return false;">
+            <label>Upload Picture</label>
+            <input type="file" accept="image/*" required>
+
+            <label>Item Name</label>
+            <input type="text" placeholder="e.g. Blue Wallet" required>
+
+            <label id="location-label">Location</label>
+            <input type="text" placeholder="Where did this happen?" required>
+
+            <label>Mobile Number</label>
+            <input type="tel" placeholder="Your contact number" required>
+
+            <label>Description</label>
+            <textarea rows="4" placeholder="Provide any identifying marks or details..."></textarea>
+
+            <label>Additional Contact Info</label>
+            <input type="text" placeholder="Email or Social Media handle">
+
+            <button type="submit">Submit Report</button>
+        </form>
+    </div>
+
+    <script>
+        // This script detects if the user came from the 'Lost' or 'Found' button
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type');
+        if (type) {
+            document.getElementById('form-title').innerText = "Report " + type + " Item";
+            document.getElementById('location-label').innerText = type + " Location";
+        }
+    </script>
+    <script>
+    document.addEventListener('mousemove', function(e) {
+        var sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        
+        // Position the sparkle at mouse location
+        sparkle.style.left = e.pageX + 'px';
+        sparkle.style.top = e.pageY + 'px';
+        
+        // Randomize the color for the rainbow effect
+        var color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        sparkle.style.backgroundColor = color;
+        sparkle.style.boxShadow = `0 0 10px ${color}`;
+
+        document.body.appendChild(sparkle);
+
+        // Remove the sparkle after it fades out
+        setTimeout(function() {
+            sparkle.remove();
+        }, 1000);
+    });
+</script>
+
+<style>
+    /* Styling for the individual sparkle dots */
+    .sparkle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        pointer-events: none; /* Mouse ignores them */
+        animation: flyAndFade 1s linear forwards;
+        z-index: 9999;
+    }
+
+    @keyframes flyAndFade {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(50px) scale(0); opacity: 0; }
+    }
+</style>
+</body>
+</html>
